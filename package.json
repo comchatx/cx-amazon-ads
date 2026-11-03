@@ -1,0 +1,75 @@
+{
+  "name": "@comchatx/cx-amazon-ads",
+  "version": "0.1.0",
+  "description": "Reads and updates your own Amazon ads.",
+  "license": "MIT",
+  "author": "ComChatX",
+  "homepage": "https://github.com/comchatx/cx-amazon-ads#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/comchatx/cx-amazon-ads.git"
+  },
+  "bugs": "https://github.com/comchatx/cx-amazon-ads/issues",
+  "keywords": [
+    "pi-package"
+  ],
+  "type": "module",
+  "pi": {
+    "skills": [
+      "./skills"
+    ],
+    "prompts": [
+      "./prompts"
+    ]
+  },
+  "files": [
+    "skills",
+    "prompts",
+    "README.zh-CN.md"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "comchatx": {
+    "name": "Amazon Ads",
+    "description": {
+      "zh": "读取并更新你自己的亚马逊广告。"
+    },
+    "mark": {
+      "line": "layout"
+    },
+    "section": "data",
+    "order": 21,
+    "skills": {
+      "amazon-ads": {
+        "zh": "通过 Amazon Ads API 读取和修改你自己的亚马逊广告：广告活动、广告组、关键词、预算、竞价和报告，覆盖你授权的每个区域。"
+      }
+    },
+    "prompts": {
+      "spend-this-week": {
+        "zh": "按广告活动查看最近 7 天的花费和销售额"
+      },
+      "out-of-budget": {
+        "zh": "找出预算不够用的广告活动"
+      },
+      "wasted-keywords": {
+        "zh": "找出只花钱不出单的关键词"
+      }
+    },
+    "source": {
+      "name": "amazon-ads",
+      "help": "https://advertising.amazon.com/API/docs/en-us/guides/account-management/authorization/authorization-grants",
+      "aspects": {}
+    }
+  },
+  "dependencies": {
+    "cx-sources": "^0.1.3"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "1.4.0",
+    "@types/node": "26.2.0",
+    "typescript": "7.0.2",
+    "vitest": "4.1.11"
+  }
+}
