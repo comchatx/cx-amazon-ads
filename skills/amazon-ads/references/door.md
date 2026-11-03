@@ -39,8 +39,8 @@ A campaign's budget in Ads API v1 is a list: `budgets: [{ budgetType: "MONETARY"
 
 Reporting v3 is asynchronous, in three calls (*Get started with version 3 reports*):
 
-1. `POST /reporting/reports` under `Content-Type: application/vnd.createasyncreportrequest.v3+json`, with `name`, `startDate`, `endDate` and a `configuration` of `adProduct` (`SPONSORED_PRODUCTS`, …), `groupBy`, `columns`, `reportTypeId` (`spCampaigns`, …), `timeUnit` (`DAILY`, with `date` among the columns, or `SUMMARY`, with `startDate` and `endDate`) and `format` `GZIP_JSON`. It answers `200` with a `reportId`. An identical request while one is generating answers `425`: read the one already asked for.
-2. `GET /reporting/reports/{reportId}` until `status` is `COMPLETED`; `PENDING` and `PROCESSING` mean not yet. Generation takes up to three hours, so ask again after a wait: repeated asks are throttled with `429`.
+1. `POST /reporting/reports` under `Content-Type: application/vnd.createasyncreportrequest.v3+json`, with `name`, `startDate`, `endDate` and a `configuration` of `adProduct` (`SPONSORED_PRODUCTS`, …), `groupBy`, `columns`, `reportTypeId` (`spCampaigns`, …), `timeUnit` (`DAILY`, with `date` among the columns, or `SUMMARY`, with `startDate` and `endDate`) and `format` `GZIP_JSON`. It answers `200` with a `reportId`. A request identical to one still generating answers `425`, too soon.
+2. `GET /reporting/reports/{reportId}` until `status` is `COMPLETED`; `PENDING` and `PROCESSING` mean not yet. Generation takes up to three hours, and repeated status calls may be answered `429`; Amazon's page asks for a delay between them.
 3. The `url` of the completed report is an S3 address: the box's own download, outside the door, gzipped JSON rows.
 
 Amazon deprecates reporting v3 on 2027-06-30 for its new reporting API.
@@ -49,5 +49,5 @@ Amazon deprecates reporting v3 on 2027-06-30 for its new reporting API.
 
 - A reply outside 2xx lands with its status, its headers and as much of its body as came, and the call ends `failed`, exit 1: the line reads `the source answered HTTP 403`, with the status and the reply's opening under it; a `429` is `provider_rate_limit`. A redirect is followed nowhere.
 - A reply cut short ends `failed`, exit 1, whatever its status, with the bytes that came landed.
-- A `429` is Amazon's answer, with a `Retry-After` header giving the seconds to wait (*Rate limiting*); the door adds no wait and retries nothing. Wait as long as it says, or, without one, double the wait at each `429` from about a second, adding a random part of up to half, and stop after five.
-- A list sent as a `POST` is a change to the gate: lost after it left, it reads `sent, outcome unknown`, and asking again is safe because a list changes nothing at Amazon.
+- A `429` is Amazon's answer; its `Retry-After` header, where present, gives the seconds to wait (*Rate limiting*). The door adds no wait and retries nothing. Amazon's *Rate limiting* page recommends exponential backoff where `429`s recur, and longer backoff for report generation.
+- A list sent as a `POST` is a change to the gate: lost after it left, it reads `sent, outcome unknown`, though a list changes nothing at Amazon.
