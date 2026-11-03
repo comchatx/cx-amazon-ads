@@ -23,7 +23,7 @@ The platform holds the client pair, `client_id` and `client_secret`, and the sel
 
 ## Profiles
 
-Nearly every call names one advertising account in one marketplace: `--header Amazon-Advertising-API-Scope=<profileId>`. Read the ids from `GET /v2/profiles` at the region's origin, never ask the seller for them; each profile's `countryCode` names its marketplace. An empty list means the grant works but reaches no account there with View and Edit permission.
+Nearly every call names one advertising account in one marketplace: `--header Amazon-Advertising-API-Scope=<profileId>`. Read the ids from `GET /v2/profiles` at the region's origin; each profile's `countryCode` names its marketplace. An empty list means the grant works but reaches no account there with View and Edit permission.
 
 ## The door
 

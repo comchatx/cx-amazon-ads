@@ -1,6 +1,6 @@
 # The Amazon Ads door
 
-Everything here is from Amazon's Ads API guides at <https://advertising.amazon.com/API/docs/en-us>, read 2026-11-03; the page a fact comes from is named beside it.
+This file holds two kinds of line. Amazon's facts are from its Ads API guides at <https://advertising.amazon.com/API/docs/en-us>, read 2026-11-03, with the page named beside each. The door's own behaviour — the token step, the refusals, the endings, and the gate's reading of a `POST` — is ComChatX's, and names no page.
 
 ## The token step
 
@@ -8,7 +8,7 @@ Every call begins with one trade at Login with Amazon, `https://api.amazon.com/a
 
 A trade Amazon refuses ends the call `failed` with nothing of the request sent, Amazon's words under the line: `refresh-token trade, HTTP 400: invalid_grant: …` means the refresh token is not valid — revoked, expired, or issued to another application — and the seller saves a new one on the plugin's Settings; `invalid_client` means the client pair. Refresh tokens issued on or after 2026-07-30 expire 365 days after the advertiser's consent (*Refresh tokens*).
 
-One refresh token is one Amazon user's grant, good in every region: the seller saves a connection with it in each region they advertise in.
+The door expects one refresh token, one Amazon user's grant, to serve every region; this is the door's expectation, not a line of Amazon's guides. The seller saves a connection with it in each region they advertise in.
 
 ## Headers a request names
 
@@ -47,7 +47,7 @@ Amazon deprecates reporting v3 on 2027-06-30 for its new reporting API.
 
 ## The reply
 
-- A reply outside 2xx lands with its status, its headers and as much of its body as came, and the call ends `failed`, exit 1: the line reads `the source answered HTTP 403`, with the status and the reply's opening under it; a `429` is `provider_rate_limit`. A redirect is followed nowhere.
+- A reply outside 2xx that the door returns lands with its status, its headers and as much of its body as came, and the call ends `failed`, exit 1: the line reads `the source answered HTTP 403`, with the status and the reply's opening under it; a returned `429` is `provider_rate_limit`. A redirect is followed nowhere and nothing of it lands: a read ends `failed`, a change reads `sent, outcome unknown`.
 - A reply cut short ends `failed`, exit 1, whatever its status, with the bytes that came landed.
 - A `429` is Amazon's answer; its `Retry-After` header, where present, gives the seconds to wait (*Rate limiting*). The door adds no wait and retries nothing. Amazon's *Rate limiting* page recommends exponential backoff where `429`s recur, and longer backoff for report generation.
 - A list sent as a `POST` is a change to the gate: lost after it left, it reads `sent, outcome unknown`, though a list changes nothing at Amazon.
