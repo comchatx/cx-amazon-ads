@@ -1,6 +1,6 @@
 {
   "name": "@comchatx/cx-amazon-ads",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Reads and updates your own Amazon ads.",
   "license": "MIT",
   "author": "ComChatX",
