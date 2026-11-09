@@ -1,6 +1,6 @@
 {
   "name": "@comchatx/cx-amazon-ads",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Reads and updates your own Amazon ads.",
   "license": "MIT",
   "author": "ComChatX",
@@ -33,9 +33,7 @@
   },
   "comchatx": {
     "name": "Amazon Ads",
-    "description": {
-      "zh": "读取并更新你自己的亚马逊广告。"
-    },
+    "about": "读取并更新你自己的亚马逊广告。",
     "mark": {
       "line": "layout"
     },
