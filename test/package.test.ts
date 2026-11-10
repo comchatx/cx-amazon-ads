@@ -61,6 +61,16 @@ it("the door says how a report is asked for, in v3 and in v1, as Amazon's pages 
   for (const fact of [
     "`POST /adsApi/v1/create/reports`", "`POST /adsApi/v1/retrieve/reports`", "`POST /adsApi/v1/delete/reports`", "answering `207`",
     "`accessRequestedAccounts`, a list of 1 to 2,000 accounts", '"advertiserAccountId"', '"managerAccountId"', "no `Amazon-Advertising-API-Scope` header",
-    "`PENDING`, `PROCESSING`, `COMPLETED` and `FAILED`", "`completedReportParts`, up to 100 parts", "once per minute", "per client id", "no `425`",
+    "`PENDING`, `PROCESSING`, `COMPLETED` and `FAILED`", "`completedReportParts`, up to 100 parts", "once per minute", "no `425`",
+    "Amazon's pages disagree", "per client id", "release note of 2026-09-30", "one concurrent report per advertiser",
   ]) expect(v1, fact).toContain(fact);
+});
+
+it("says what the product does today of grants: the platform holds each under a name, and cx learns the names from the door's refusal", () => {
+  const door = readFileSync(join(ROOT, "skills/amazon-ads/references/door.md"), "utf8");
+  const grants = door.split(/^## /m).find((part) => part.startsWith("Grants\n")) ?? "";
+  expect(grants).toContain("A grant is one Amazon sign-in's refresh token, which the platform holds for the account under a name");
+  expect(grants).toContain("That line is how cx learns the names");
+  // No form the page does not draw: the Settings that save a named grant are not built.
+  expect(grants).not.toMatch(/Settings|they choose|may save/);
 });

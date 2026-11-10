@@ -10,13 +10,13 @@ A trade Amazon refuses ends the call `failed` with nothing of the request sent, 
 
 ## Grants
 
-A grant is one Amazon sign-in's refresh token, saved by the seller on the plugin's Settings under a name they choose; one grant serves every region's origin. A call goes on the account's only grant. Where the account holds several, `--header x-cx-store=<name>` names the one, and Amazon never sees that header. A call naming none, or a name the account does not hold, is refused before anything is sent, with a line that names each grant the account holds:
+A grant is one Amazon sign-in's refresh token, which the platform holds for the account under a name; one grant serves every region's origin. A call goes on the account's only grant. Where the account holds several, `--header x-cx-store=<name>` names the one, and Amazon never sees that header. A call naming none, or a name the account does not hold, is refused before anything is sent, with a line that names each grant the account holds:
 
 ```
 key_required: the account holds 2 saved amazon-ads grants for region na, main, second: a request names one in the x-cx-store header
 ```
 
-That line is how cx learns the names; `main` here is one. A seller whose advertising accounts sit under two Amazon sign-ins may save a grant for each, or link the accounts under Amazon's manager account, so that one sign-in's grant reaches them all.
+That line is how cx learns the names; `main` here is one. A seller whose advertising accounts sit under two Amazon sign-ins may hold a grant for each, or link the accounts under Amazon's manager account, so that one sign-in's grant reaches them all.
 
 ## Headers a request names
 
@@ -61,7 +61,7 @@ Reporting v1 is the API that replaces v3, at each of the three hosts (*Getting s
 - `POST /adsApi/v1/retrieve/reports` with `{ "reportIds": [<id>] }`, one id: the report, its `status` one of `PENDING`, `PROCESSING`, `COMPLETED` and `FAILED`. A failed one carries `failureCode` and `failureReason`; a completed one, `completedReportParts`, up to 100 parts, each with `url`, `urlExpirationDateTime` and `sizeInBytes`, its own pre-signed S3 address, which is the box's own download, outside the door. A report may carry `warnings`, each naming a field.
 - `POST /adsApi/v1/delete/reports` with `{ "reportIds": [<id>] }`, one id.
 
-How often to ask: Amazon's recommended frequency for retrieving a report's status is once per minute (*Getting started with the Reporting API v1*). Its limits apply per client id, shared by every advertiser called with it, with as few as one report generating at a time; a call over them answers `429`, and Amazon asks for exponential backoff on `429` and 5xx answers and for requests spread over the day rather than sent in bursts (*Limits and best practices*). The contract lists no `425` among create's answers.
+How often to ask: Amazon's recommended frequency for retrieving a report's status is once per minute (*Getting started with the Reporting API v1*). On its limits Amazon's pages disagree: the *Overview of the Reporting v1 API* and *Limits and best practices* say they apply per client id, shared by every advertiser called with it, with as few as one report generating at a time, while the release note of 2026-09-30 (*Amazon Marketing Stream v2 and the new Reporting API now generally available*) says one concurrent report per advertiser. A call over the limits answers `429`, and Amazon asks for exponential backoff on `429` and 5xx answers and for requests spread over the day rather than sent in bursts (*Limits and best practices*). The contract lists no `425` among create's answers.
 
 ## The reply
 
