@@ -44,3 +44,33 @@ it("ships its skills, its templates, its READMEs and its license, and nothing el
   expect(packed[0]!.files.map((file) => file.path).sort()).toEqual(["LICENSE", "README.md", "README.zh-CN.md", "package.json", ...shipped].sort());
   expect(manifest.files).toEqual(["skills", "prompts", "README.zh-CN.md"]);
 });
+
+it("holds the Chinese words the catalogue reads: the card's line and the skill's line, each in Chinese", () => {
+  const field = manifest.comchatx as unknown as { about?: unknown; skills: Record<string, { zh?: unknown }> };
+  const chinese = (value: unknown): boolean => typeof value === "string" && value.trim() === value && /\p{Script=Han}/u.test(value);
+  expect(chinese(field.about), "comchatx.about").toBe(true);
+  expect(chinese(field.skills["amazon-ads"]?.zh), "comchatx.skills.amazon-ads.zh").toBe(true);
+});
+
+it("the door says how a report is asked for, in v3 and in v1, as Amazon's pages say it", () => {
+  const door = readFileSync(join(ROOT, "skills/amazon-ads/references/door.md"), "utf8");
+  const section = (title: string): string => door.split(/^## /m).find((part) => part.startsWith(`${title}\n`)) ?? "";
+  const v3 = section("Reports");
+  for (const fact of ["`POST /reporting/reports`", "application/vnd.createasyncreportrequest.v3+json", "`GET /reporting/reports/{reportId}`", "`COMPLETED`", "`PENDING` and `PROCESSING`", "answers `425`", "2027-06-30"]) expect(v3, fact).toContain(fact);
+  const v1 = section("Reports, v1");
+  for (const fact of [
+    "`POST /adsApi/v1/create/reports`", "`POST /adsApi/v1/retrieve/reports`", "`POST /adsApi/v1/delete/reports`", "answering `207`",
+    "`accessRequestedAccounts`, a list of 1 to 2,000 accounts", '"advertiserAccountId"', '"managerAccountId"', "no `Amazon-Advertising-API-Scope` header",
+    "`PENDING`, `PROCESSING`, `COMPLETED` and `FAILED`", "`completedReportParts`, up to 100 parts", "once per minute", "no `425`",
+    "Amazon's pages disagree", "per client id", "release note of 2026-09-30", "one concurrent report per advertiser",
+  ]) expect(v1, fact).toContain(fact);
+});
+
+it("says what the product does today of grants: the platform holds each under a name, and cx learns the names from the door's refusal", () => {
+  const door = readFileSync(join(ROOT, "skills/amazon-ads/references/door.md"), "utf8");
+  const grants = door.split(/^## /m).find((part) => part.startsWith("Grants\n")) ?? "";
+  expect(grants).toContain("A grant is one Amazon sign-in's refresh token, which the platform holds for the account under a name");
+  expect(grants).toContain("That line is how cx learns the names");
+  // No form the page does not draw: the Settings that save a named grant are not built.
+  expect(grants).not.toMatch(/Settings|they choose|may save/);
+});
