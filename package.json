@@ -1,6 +1,6 @@
 {
   "name": "@comchatx/cx-amazon-ads",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Pauses keywords that don't sell, and tunes budgets and bids.",
   "license": "MIT",
   "author": "ComChatX",
