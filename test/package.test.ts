@@ -44,3 +44,10 @@ it("ships its skills, its templates, its READMEs and its license, and nothing el
   expect(packed[0]!.files.map((file) => file.path).sort()).toEqual(["LICENSE", "README.md", "README.zh-CN.md", "package.json", ...shipped].sort());
   expect(manifest.files).toEqual(["skills", "prompts", "README.zh-CN.md"]);
 });
+
+it("holds the Chinese words the catalogue reads: the card's line and the skill's line, each in Chinese", () => {
+  const field = manifest.comchatx as unknown as { about?: unknown; skills: Record<string, { zh?: unknown }> };
+  const chinese = (value: unknown): boolean => typeof value === "string" && value.trim() === value && /\p{Script=Han}/u.test(value);
+  expect(chinese(field.about), "comchatx.about").toBe(true);
+  expect(chinese(field.skills["amazon-ads"]?.zh), "comchatx.skills.amazon-ads.zh").toBe(true);
+});

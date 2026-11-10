@@ -8,7 +8,15 @@ Every call begins with one trade at Login with Amazon, `https://api.amazon.com/a
 
 A trade Amazon refuses ends the call `failed` with nothing of the request sent, Amazon's words under the line: `refresh-token trade, HTTP 400: invalid_grant: …` means the refresh token is not valid — revoked, expired, or issued to another application — and the seller saves a new one on the plugin's Settings; `invalid_client` means the client pair. Refresh tokens issued on or after 2026-07-30 expire 365 days after the advertiser's consent (*Refresh tokens*).
 
-The door expects one refresh token, one Amazon user's grant, to serve every region; this is the door's expectation, not a line of Amazon's guides. The seller saves a connection with it in each region they advertise in.
+## Grants
+
+A grant is one Amazon sign-in's refresh token, saved by the seller on the plugin's Settings under a name they choose; one grant serves every region's origin. A call goes on the account's only grant. Where the account holds several, `--header x-cx-store=<name>` names the one, and Amazon never sees that header. A call naming none, or a name the account does not hold, is refused before anything is sent, with a line that names each grant the account holds:
+
+```
+key_required: the account holds 2 saved amazon-ads grants for region na, main, second: a request names one in the x-cx-store header
+```
+
+That line is how cx learns the names; `main` here is one. A seller whose advertising accounts sit under two Amazon sign-ins may save a grant for each, or link the accounts under Amazon's manager account, so that one sign-in's grant reaches them all.
 
 ## Headers a request names
 
