@@ -1,7 +1,7 @@
 {
   "name": "@comchatx/cx-amazon-ads",
-  "version": "0.1.2",
-  "description": "Reads and updates your own Amazon ads.",
+  "version": "0.1.3",
+  "description": "Pauses keywords that don't sell, and tunes budgets and bids.",
   "license": "MIT",
   "author": "ComChatX",
   "homepage": "https://github.com/comchatx/cx-amazon-ads#readme",
@@ -33,7 +33,7 @@
   },
   "comchatx": {
     "name": "Amazon Ads",
-    "about": "读取并更新你自己的亚马逊广告。",
+    "about": "暂停只花钱不出单的关键词，替你调整预算和竞价。",
     "mark": {
       "line": "layout"
     },
