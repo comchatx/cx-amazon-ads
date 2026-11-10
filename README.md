@@ -1,20 +1,18 @@
-# Amazon Ads
-
-This plugin connects cx to your own Amazon advertising through Amazon's Ads API. Once you connect a store, cx can read your campaigns, ad groups, keywords, budgets and reports, and update your ads in the marketplaces you authorised, such as raising a budget or pausing a keyword.
+cx shows each campaign's spend, sales and ACOS, negates search terms that don't sell, and creates campaigns with the bids Amazon recommends. It reads Amazon's Ads API, for Sponsored Products, Brands and Display.
 
 Some things you can ask:
 
-- What did my ads spend and sell in the last 7 days, campaign by campaign?
-- Which campaigns run out of budget?
-- Which keywords spend money without selling?
+- Which search terms in B0EXAMPLE1's ads led to sales?
+- Create an automatic Sponsored Products campaign for B0EXAMPLE1 at $20 a day.
+- What was the ACOS of Sponsored Products and of Sponsored Brands last month?
 
 ## Connecting your store
 
-Open the plugin's Settings and connect a store for each region you advertise in: North America, Europe or the Far East. Settings asks for your Ads API application's details and a refresh token, and Amazon's guide to authorization grants shows how to get them. Your keys stay with ComChatX and are never given to cx.
+On the plugin's Settings, connect a store for each region you advertise in: North America, Europe or the Far East. Settings asks for your Ads API application's details and a Refresh token, and Amazon's guide to authorization grants shows how to get them. Your keys stay with ComChatX and are never given to cx.
 
 ## What it costs
 
-Nothing. Neither Amazon nor ComChatX charges for Ads API calls. What your ads spend is between you and Amazon.
+Nothing. Neither Amazon nor ComChatX charges for it. What your ads spend is between you and Amazon.
 
 ## What it needs
 
