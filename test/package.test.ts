@@ -51,3 +51,16 @@ it("holds the Chinese words the catalogue reads: the card's line and the skill's
   expect(chinese(field.about), "comchatx.about").toBe(true);
   expect(chinese(field.skills["amazon-ads"]?.zh), "comchatx.skills.amazon-ads.zh").toBe(true);
 });
+
+it("the door says how a report is asked for, in v3 and in v1, as Amazon's pages say it", () => {
+  const door = readFileSync(join(ROOT, "skills/amazon-ads/references/door.md"), "utf8");
+  const section = (title: string): string => door.split(/^## /m).find((part) => part.startsWith(`${title}\n`)) ?? "";
+  const v3 = section("Reports");
+  for (const fact of ["`POST /reporting/reports`", "application/vnd.createasyncreportrequest.v3+json", "`GET /reporting/reports/{reportId}`", "`COMPLETED`", "`PENDING` and `PROCESSING`", "answers `425`", "2027-06-30"]) expect(v3, fact).toContain(fact);
+  const v1 = section("Reports, v1");
+  for (const fact of [
+    "`POST /adsApi/v1/create/reports`", "`POST /adsApi/v1/retrieve/reports`", "`POST /adsApi/v1/delete/reports`", "answering `207`",
+    "`accessRequestedAccounts`, a list of 1 to 2,000 accounts", '"advertiserAccountId"', '"managerAccountId"', "no `Amazon-Advertising-API-Scope` header",
+    "`PENDING`, `PROCESSING`, `COMPLETED` and `FAILED`", "`completedReportParts`, up to 100 parts", "once per minute", "per client id", "no `425`",
+  ]) expect(v1, fact).toContain(fact);
+});

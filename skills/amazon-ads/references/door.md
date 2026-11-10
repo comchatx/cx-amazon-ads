@@ -53,6 +53,16 @@ Reporting v3 is asynchronous, in three calls (*Get started with version 3 report
 
 Amazon deprecates reporting v3 on 2027-06-30 for its new reporting API.
 
+## Reports, v1
+
+Reporting v1 is the API that replaces v3, at each of the three hosts (*Getting started with the Reporting API v1*; the Reports API contract, `AmazonAdsAPIALLReportsContract_prod_3p.json`, read 2026-11-10). Three operations, each a `POST` with a JSON body, each answering `207` with at most one entry in `success` and at most one in `error`; a success holds `index` and the `report`:
+
+- `POST /adsApi/v1/create/reports`: `accessRequestedAccounts`, a list of 1 to 2,000 accounts, each `{ "advertiserAccountId": … }` (a Global Account, or an Amazon DSP regional account) or `{ "managerAccountId": … }`; and `reports`, exactly one, with `format` (`CSV`, `GZIP_JSON`, `PARTITIONED_CSV` or `PARTITIONED_GZIP_JSON`), `periods`, exactly one `{ "datePeriod": { "startDate", "endDate" } }`, and `query`, its `fields` and an optional `filter`. The account is named in the body: the contract declares no `Amazon-Advertising-API-Scope` header for these operations, and an advertising account id is not a profile id. The answer's `report.reportId` is the report's id, and its `status` is `PENDING`.
+- `POST /adsApi/v1/retrieve/reports` with `{ "reportIds": [<id>] }`, one id: the report, its `status` one of `PENDING`, `PROCESSING`, `COMPLETED` and `FAILED`. A failed one carries `failureCode` and `failureReason`; a completed one, `completedReportParts`, up to 100 parts, each with `url`, `urlExpirationDateTime` and `sizeInBytes`, its own pre-signed S3 address, which is the box's own download, outside the door. A report may carry `warnings`, each naming a field.
+- `POST /adsApi/v1/delete/reports` with `{ "reportIds": [<id>] }`, one id.
+
+How often to ask: Amazon's recommended frequency for retrieving a report's status is once per minute (*Getting started with the Reporting API v1*). Its limits apply per client id, shared by every advertiser called with it, with as few as one report generating at a time; a call over them answers `429`, and Amazon asks for exponential backoff on `429` and 5xx answers and for requests spread over the day rather than sent in bursts (*Limits and best practices*). The contract lists no `425` among create's answers.
+
 ## The reply
 
 - A reply outside 2xx that the door returns lands with its status, its headers and as much of its body as came, and the call ends `failed`, exit 1: the line reads `the source answered HTTP 403`, with the status and the reply's opening under it; a returned `429` is `provider_rate_limit`. A redirect is followed nowhere and nothing of it lands: a read ends `failed`, a change reads `sent, outcome unknown`.
