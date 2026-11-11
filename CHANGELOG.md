@@ -2,7 +2,7 @@
 
 ## 0.1.5
 
-- `comchatx.source` names each field's label in English and Chinese, as the account's page draws it: "Client identifier", "Client secret" and "Refresh token". The page used the field's own key.
+- `comchatx.source.fields.<field>.label` names each field in English and Chinese, as the account's page draws it: "Client identifier", "Client secret" and "Refresh token". The page used the field's own key.
 - `comchatx.source.lines` holds the page's words for the ad-account list, in English and Chinese: the add button, the connected line, the line saying a removed refresh token takes its ad accounts with it, and the lines for a token Amazon no longer accepts, for no ad account listed and for a region Amazon did not answer for. They are the words of the signed prototype.
 - Where the account holds several grants, a call goes on the grant that reaches the profile its `Amazon-Advertising-API-Scope` names, and a call naming none, `GET /v2/profiles` among them, is refused with the accounts listed, each by its profile id, name and country. The door's reference and the skill said a call named its grant with `x-cx-store`; that stays only for a grant Amazon has listed no account for yet.
 
