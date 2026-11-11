@@ -10,13 +10,13 @@ A trade Amazon refuses ends the call `failed` with nothing of the request sent, 
 
 ## Grants
 
-A grant is one Amazon sign-in's refresh token, which the platform holds for the account under a name; one grant serves every region's origin. A call goes on the account's only grant. Where the account holds several, `--header x-cx-store=<name>` names the one, and Amazon never sees that header. A call naming none, or a name the account does not hold, is refused before anything is sent, with a line that names each grant the account holds:
+A grant is one Amazon sign-in's refresh token, which the platform holds for the account; one grant serves every region's origin. A call goes on the account's only grant. Where the account holds several, a call goes on the grant whose accounts, as Amazon listed them when the seller connected it, include the profile the call names in `Amazon-Advertising-API-Scope`. A call naming no profile, a profile no grant has listed, or the header twice, is refused before anything is sent, with a line that lists the accounts the grants reach in that region, each by its profile id, its name and its country:
 
 ```
-key_required: the account holds 2 saved amazon-ads grants for region na, main, second: a request names one in the x-cx-store header
+key_required: the account holds 2 saved amazon-ads grants for region na and this request names no account; the accounts they reach: 4100 "Shop US" (US), 4200 "Second shop" (US): a request names one in the Amazon-Advertising-API-Scope header
 ```
 
-That line is how cx learns the names; `main` here is one. A seller whose advertising accounts sit under two Amazon sign-ins may hold a grant for each, or link the accounts under Amazon's manager account, so that one sign-in's grant reaches them all.
+That line is how cx learns the profiles where the account holds several grants, since `GET /v2/profiles` names none and is refused so too. A v1 report names its accounts in its body and no profile, so with several grants it is refused the same way; with one grant it goes as written. A grant for which Amazon has listed no account yet is reached only by its name in `--header x-cx-store=<name>`, a header Amazon never sees; a call naming a name the account does not hold is refused with a line naming the grants it holds. A seller whose advertising accounts sit under two Amazon sign-ins may hold a grant for each, or link the accounts under Amazon's manager account, so that one sign-in's grant reaches them all.
 
 ## Headers a request names
 

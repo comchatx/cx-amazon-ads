@@ -19,7 +19,7 @@ Amazon's reference: <https://advertising.amazon.com/API/docs/en-us>.
 | `https://advertising-api-eu.amazon.com` | `eu` | UK, FR, IT, ES, DE, NL, AE, PL, TR, EG, SA, SE, BE, IN, ZA |
 | `https://advertising-api-fe.amazon.com` | `fe` | JP, AU, SG |
 
-The platform holds the client pair, `client_id` and `client_secret`, and the seller's grants, each a name and a `refresh_token`, one Amazon sign-in's, serving every region; the box holds none. A call goes on the account's only grant; where it holds several, `--header x-cx-store=<name>` names one, and Amazon never sees it (`references/door.md`, *Grants*, says how cx learns the names). Without the client pair or a grant, the door refuses `key_required`, naming what is missing, before anything is sent. A request naming `Authorization`, `Amazon-Advertising-API-ClientId` or `Amazon-Ads-ClientId` is refused.
+The platform holds the client pair, `client_id` and `client_secret`, and the seller's grants, each a `refresh_token`, one Amazon sign-in's, serving every region; the box holds none. A call goes on the account's only grant; where it holds several, it goes on the grant that reaches the profile its `Amazon-Advertising-API-Scope` names, and a call naming none, `GET /v2/profiles` among them, is refused with the accounts listed (`references/door.md`, *Grants*). Without the client pair or a grant, the door refuses `key_required`, naming what is missing, before anything is sent. A request naming `Authorization`, `Amazon-Advertising-API-ClientId` or `Amazon-Ads-ClientId` is refused.
 
 ## Profiles
 

@@ -66,11 +66,16 @@ it("the door says how a report is asked for, in v3 and in v1, as Amazon's pages 
   ]) expect(v1, fact).toContain(fact);
 });
 
-it("says what the product does today of grants: the platform holds each under a name, and cx learns the names from the door's refusal", () => {
+it("says what the product does today of grants: a call goes on the grant that reaches its profile, and cx learns the profiles from the door's refusal", () => {
   const door = readFileSync(join(ROOT, "skills/amazon-ads/references/door.md"), "utf8");
+  const skill = readFileSync(join(ROOT, "skills/amazon-ads/SKILL.md"), "utf8");
   const grants = door.split(/^## /m).find((part) => part.startsWith("Grants\n")) ?? "";
-  expect(grants).toContain("A grant is one Amazon sign-in's refresh token, which the platform holds for the account under a name");
-  expect(grants).toContain("That line is how cx learns the names");
+  expect(grants).toContain("a call goes on the grant whose accounts, as Amazon listed them when the seller connected it, include the profile the call names in `Amazon-Advertising-API-Scope`");
+  expect(grants).toContain("That line is how cx learns the profiles");
+  expect(grants).toContain("A v1 report names its accounts in its body and no profile, so with several grants it is refused the same way");
+  // The one road left by name: a grant Amazon has listed no account for yet.
+  expect(grants.match(/x-cx-store/g)?.length).toBe(1);
+  expect(skill).not.toContain("x-cx-store");
   // No form the page does not draw: the Settings that save a named grant are not built.
   expect(grants).not.toMatch(/Settings|they choose|may save/);
 });
