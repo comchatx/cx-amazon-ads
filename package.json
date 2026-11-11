@@ -1,6 +1,6 @@
 {
   "name": "@comchatx/cx-amazon-ads",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Pauses keywords that don't sell, and tunes budgets and bids.",
   "license": "MIT",
   "author": "ComChatX",
@@ -58,7 +58,53 @@
     "source": {
       "name": "amazon-ads",
       "help": "https://advertising.amazon.com/API/docs/en-us/guides/account-management/authorization/authorization-grants",
-      "aspects": {}
+      "aspects": {},
+      "fields": {
+        "client_id": {
+          "label": {
+            "en": "Client identifier",
+            "zh": "Client identifier"
+          }
+        },
+        "client_secret": {
+          "label": {
+            "en": "Client secret",
+            "zh": "Client secret"
+          }
+        },
+        "refresh_token": {
+          "label": {
+            "en": "Refresh token",
+            "zh": "Refresh token"
+          }
+        }
+      },
+      "lines": {
+        "add": {
+          "en": "Add ad accounts",
+          "zh": "添加广告账号"
+        },
+        "connected": {
+          "en": "Ad accounts connected.",
+          "zh": "广告账号已连接。"
+        },
+        "removedWith": {
+          "en": "Its ad accounts {names} are removed with it.",
+          "zh": "它的广告账号 {names} 会一并移除。"
+        },
+        "refused": {
+          "en": "Amazon no longer accepts this refresh token. Add a new one, then remove this one.",
+          "zh": "亚马逊已不接受这个 Refresh token，请添加新的，再移除这一行。"
+        },
+        "none": {
+          "en": "Amazon listed no ad account.",
+          "zh": "亚马逊没有列出广告账号。"
+        },
+        "silent": {
+          "en": "Amazon did not answer for {regions}, so this list may be incomplete.",
+          "zh": "亚马逊没有返回{regions}的广告账号，这里可能不全。"
+        }
+      }
     }
   },
   "dependencies": {

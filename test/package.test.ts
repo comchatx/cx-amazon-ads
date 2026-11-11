@@ -66,11 +66,32 @@ it("the door says how a report is asked for, in v3 and in v1, as Amazon's pages 
   ]) expect(v1, fact).toContain(fact);
 });
 
-it("says what the product does today of grants: the platform holds each under a name, and cx learns the names from the door's refusal", () => {
+it("says what the product does today of grants: a call goes on the grant that reaches its profile, and cx learns the profiles from the door's refusal", () => {
   const door = readFileSync(join(ROOT, "skills/amazon-ads/references/door.md"), "utf8");
+  const skill = readFileSync(join(ROOT, "skills/amazon-ads/SKILL.md"), "utf8");
   const grants = door.split(/^## /m).find((part) => part.startsWith("Grants\n")) ?? "";
-  expect(grants).toContain("A grant is one Amazon sign-in's refresh token, which the platform holds for the account under a name");
-  expect(grants).toContain("That line is how cx learns the names");
+  expect(grants).toContain("a call goes on the grant whose accounts, as Amazon listed them at that grant's last check, include the profile the call names in `Amazon-Advertising-API-Scope`");
+  expect(grants).toContain("That line is how cx learns the profiles");
+  expect(grants).toContain("A v1 report names its accounts in its body: sent with no profile, with several grants it is refused as a call naming none is");
+  // The header named twice is refused as the gate refuses it: out of scope, with no list.
+  expect(grants).toContain("`out_of_scope: the Amazon-Advertising-API-Scope header is named at most once`");
+  // The one road left by name: a grant Amazon has listed no account for yet.
+  expect(grants.match(/x-cx-store/g)?.length).toBe(1);
+  expect(skill).not.toContain("x-cx-store");
   // No form the page does not draw: the Settings that save a named grant are not built.
   expect(grants).not.toMatch(/Settings|they choose|may save/);
+});
+
+it("declares its source in the shape the platform's catalogue reads: each field's label under `label`, each line in English and Chinese", () => {
+  const source = (JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")) as { comchatx: { source: { fields: Record<string, Record<string, unknown>>; lines: Record<string, unknown> } } }).comchatx.source;
+  const words = (value: unknown): boolean => typeof value === "object" && value !== null && Object.keys(value).sort().join() === "en,zh"
+    && Object.values(value).every((one) => typeof one === "string" && one.length > 0);
+  expect(Object.keys(source.fields)).toEqual(["client_id", "client_secret", "refresh_token"]);
+  for (const [field, declared] of Object.entries(source.fields)) {
+    // The catalogue reads `label` and `help` under a field and nothing else: a field declared otherwise drops the whole source.
+    expect(Object.keys(declared).every((key) => key === "label" || key === "help"), field).toBe(true);
+    expect(words(declared["label"]), field).toBe(true);
+  }
+  expect(Object.keys(source.lines)).toEqual(["add", "connected", "removedWith", "refused", "none", "silent"]);
+  for (const [place, line] of Object.entries(source.lines)) expect(words(line), place).toBe(true);
 });
