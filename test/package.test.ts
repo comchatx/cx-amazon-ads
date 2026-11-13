@@ -82,8 +82,10 @@ it("says what the product does today of grants: a call goes on the grant that re
   expect(grants).not.toMatch(/Settings|they choose|may save/);
 });
 
+const HOLDS = { removedWith: ["names"], silent: ["regions"] };
+
 it("declares its source in the shape the platform's catalogue reads: each field's label under `label`, each line in English and Chinese", () => {
-  const source = (JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")) as { comchatx: { source: { fields: Record<string, Record<string, unknown>>; lines: Record<string, unknown> } } }).comchatx.source;
+  const source = (JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")) as { comchatx: { source: { fields: Record<string, Record<string, unknown>>; lines: Record<string, unknown>; regions: Record<string, unknown> } } }).comchatx.source;
   const words = (value: unknown): boolean => typeof value === "object" && value !== null && Object.keys(value).sort().join() === "en,zh"
     && Object.values(value).every((one) => typeof one === "string" && one.length > 0);
   expect(Object.keys(source.fields)).toEqual(["client_id", "client_secret", "refresh_token"]);
@@ -92,6 +94,12 @@ it("declares its source in the shape the platform's catalogue reads: each field'
     expect(Object.keys(declared).every((key) => key === "label" || key === "help"), field).toBe(true);
     expect(words(declared["label"]), field).toBe(true);
   }
-  expect(Object.keys(source.lines)).toEqual(["add", "connected", "removedWith", "refused", "none", "silent"]);
+  expect(Object.keys(source.lines)).toEqual(["add", "connected", "removedWith", "refused", "none", "silent", "connect", "canChange", "rows", "foundNone", "checking"]);
   for (const [place, line] of Object.entries(source.lines)) expect(words(line), place).toBe(true);
+  // The catalogue fills a line's one placeholder and refuses a line that holds any other: "Sells in {places}" holds its places once in each language.
+  const holds = (line: unknown): readonly string[] => Object.values(line as Record<string, string>).map((said) => [...said.matchAll(/\{([a-z]+)\}/g)].map((one) => one[1]).join());
+  expect(Object.fromEntries(Object.entries(source.lines).map(([place, line]) => [place, [...new Set(holds(line))]]).filter(([, held]) => (held as string[]).join() !== ""))).toEqual(HOLDS);
+  // Amazon's three regions, each named in English and Chinese, in the door's order.
+  expect(Object.keys(source.regions)).toEqual(["na", "eu", "fe"]);
+  for (const [region, named] of Object.entries(source.regions)) expect(words(named), region).toBe(true);
 });

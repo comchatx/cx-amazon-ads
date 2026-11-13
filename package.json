@@ -1,6 +1,6 @@
 {
   "name": "@comchatx/cx-amazon-ads",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Pauses keywords that don't sell, and tunes budgets and bids.",
   "license": "MIT",
   "author": "ComChatX",
@@ -103,6 +103,40 @@
         "silent": {
           "en": "Amazon did not answer for {regions}, so this list may be incomplete.",
           "zh": "亚马逊没有返回{regions}的广告账号，这里可能不全。"
+        },
+        "connect": {
+          "en": "Connect your ad accounts",
+          "zh": "连接广告账号"
+        },
+        "canChange": {
+          "en": "Once connected, cx can read and change your ads.",
+          "zh": "连接后，cx 可以读取和修改你的广告。"
+        },
+        "rows": {
+          "en": "Ad accounts",
+          "zh": "广告账号"
+        },
+        "foundNone": {
+          "en": "Amazon found no ad account for this token; get a new one with the Amazon account that manages your ads.",
+          "zh": "亚马逊没有找到广告账号，请用管理广告的亚马逊账号获取新的 Refresh token。"
+        },
+        "checking": {
+          "en": "Checking with Amazon…",
+          "zh": "正在向亚马逊确认…"
+        }
+      },
+      "regions": {
+        "na": {
+          "en": "North America",
+          "zh": "北美"
+        },
+        "eu": {
+          "en": "Europe",
+          "zh": "欧洲"
+        },
+        "fe": {
+          "en": "Far East",
+          "zh": "远东"
         }
       }
     }

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.6
+
+- `comchatx.source.lines` holds five more of the page's words for the ad-account list, in English and Chinese: the heading of the first form, "Connect your ad accounts", the line under it on what cx can do once connected, the list's heading, "Ad accounts", the form's alert when a refresh token reaches no ad account, and "Checking with Amazon…" while Amazon is asked. They are the platform's signed words for those places, moved as they are.
+- `comchatx.source.regions` names Amazon's three regions, North America, Europe and Far East, in English and Chinese, as the page names them.
+
 ## 0.1.5
 
 - `comchatx.source.fields.<field>.label` names each field in English and Chinese, as the account's page draws it: "Client identifier", "Client secret" and "Refresh token". The page used the field's own key.
