@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.7
+
+- The card's name is the one signed on 2026-11-17: "Amazon Ads API" on the English page (`comchatx.name`) and 「亚马逊广告接口」 on the Chinese page (`comchatx.nameZh`).
+
 ## 0.1.6
 
 - `comchatx.source.lines` holds five more of the page's words for the ad-account list, in English and Chinese: the heading of the first form, "Connect your ad accounts", the line under it on what cx can do once connected, the list's heading, "Ad accounts", the form's alert when a refresh token reaches no ad account, and "Checking with Amazon…" while Amazon is asked. They are the platform's signed words for those places, moved as they are.
