@@ -3,6 +3,7 @@
 ## 0.1.7
 
 - The card's name is the one signed on 2026-11-17: "Amazon Ads API" on the English page (`comchatx.name`) and 「亚马逊广告接口」 on the Chinese page (`comchatx.nameZh`).
+- The README names each other plugin it speaks of by the card's name in its own language, a link to that plugin's page on npm, never by the npm name.
 
 ## 0.1.6
 
