@@ -1,6 +1,6 @@
 {
   "name": "@comchatx/cx-amazon-ads",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Pauses keywords that don't sell, and tunes budgets and bids.",
   "license": "MIT",
   "author": "ComChatX",
@@ -42,7 +42,8 @@
     "order": 21,
     "skills": {
       "amazon-ads": {
-        "zh": "通过亚马逊的 Ads API 读取并更新你在每个授权区域的亚马逊广告，包括广告活动、广告组、关键词、预算、竞价和报告。"
+        "zh": "读取和调整你的亚马逊广告：活动、关键词、预算和竞价。",
+        "en": "Reads and changes your Amazon ads: campaigns, keywords, budgets and bids."
       }
     },
     "prompts": {
@@ -56,6 +57,16 @@
         "zh": "找出只花钱不出单的关键词"
       }
     },
+    "builds": [
+      {
+        "on": "cx-amazon-seller",
+        "need": "optional",
+        "why": {
+          "en": "Tells cx from the start that you sell on Amazon.",
+          "zh": "用于让 cx 从第一条消息起就知道你在亚马逊开店。"
+        }
+      }
+    ],
     "source": {
       "name": "amazon-ads",
       "help": "https://advertising.amazon.com/API/docs/en-us/guides/account-management/authorization/authorization-grants",

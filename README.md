@@ -1,4 +1,4 @@
-cx shows each campaign's spend, sales and ACOS, negates search terms that don't sell, and creates campaigns with the bids Amazon recommends. It reads Amazon's Ads API, for Sponsored Products, Brands and Display.
+Connect your Amazon advertising account to cx so it can read your ads and change them for you. cx shows each campaign's spend, sales and ACOS, negates search terms that don't sell, adjusts budgets and bids, and creates campaigns with the keywords and bids Amazon recommends. Useful for checking each day whether your ads pay off, and stopping what spends without selling. It connects through the Ads API, Amazon's official interface for advertising, for Sponsored Products, Brands and Display.
 
 Some things you can ask:
 
@@ -13,7 +13,3 @@ On the plugin's Settings, connect a store for each region you advertise in: Nort
 ## What it costs
 
 Nothing. Neither Amazon nor ComChatX charges for it. What your ads spend is between you and Amazon.
-
-## What it needs
-
-It installs with [Data Source Core](https://www.npmjs.com/package/cx-sources), through which cx reaches every data source.
