@@ -1,6 +1,6 @@
 {
   "name": "@comchatx/cx-amazon-ads",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Pauses keywords that don't sell, and tunes budgets and bids.",
   "license": "MIT",
   "author": "ComChatX",
@@ -32,7 +32,8 @@
     "test": "vitest run"
   },
   "comchatx": {
-    "name": "Amazon Ads",
+    "name": "Amazon Ads API",
+    "nameZh": "亚马逊广告接口",
     "about": "暂停只花钱不出单的关键词，替你调整预算和竞价。",
     "mark": {
       "line": "layout"
