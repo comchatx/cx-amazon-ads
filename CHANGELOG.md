@@ -2,7 +2,7 @@
 
 ## 0.1.8
 
-- The README's first paragraph, in Chinese, is the one signed on 2026-11-18 (「把你的亚马逊广告账户连到 cx，……覆盖商品推广、品牌推广和展示型推广。」), and in English the copy seat's paragraph of the same meaning ("Connect your Amazon advertising account to cx … for Sponsored Products, Brands and Display.").
+- The README's first paragraph, in Chinese, is the one signed on 2026-11-18 (「把你的亚马逊广告账户连到 cx，……覆盖商品推广、品牌推广和展示型推广。」), and in English the paragraph of the same meaning ("Connect your Amazon advertising account to cx … for Sponsored Products, Brands and Display.").
 - The README's "What it needs" section leaves, in both languages, heading and all, as signed on 2026-11-18. The Plugins page draws what installs with it.
 - `comchatx.builds` names `cx-amazon-seller` as optional, with the reason signed on 2026-11-18: "Tells cx from the start that you sell on Amazon." / 「用于让 cx 从第一条消息起就知道你在亚马逊开店。」
 - The skill's line is the one signed on 2026-11-17, in `comchatx.skills.amazon-ads` as `zh` 「读取和调整你的亚马逊广告：活动、关键词、预算和竞价。」 and `en` "Reads and changes your Amazon ads: campaigns, keywords, budgets and bids.". `SKILL.md`'s `description` is unchanged.
