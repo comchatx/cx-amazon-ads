@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.10
+
+- The tile's mark on the Plugins page is the signed drawing.
+
 ## 0.1.9
 
 - The `spend-this-week`, `out-of-budget` and `wasted-keywords` templates send their Try it sentence, word for word, then the words you type after the template's name.
