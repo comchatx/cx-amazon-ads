@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.9
+
+- The `spend-this-week` template sends its Try it sentence, word for word, then the words you type after its name.
+
 ## 0.1.8
 
 - The README's first paragraph, in Chinese, is the one signed on 2026-11-18 (「把你的亚马逊广告账户连到 cx，……覆盖商品推广、品牌推广和展示型推广。」), and in English the paragraph of the same meaning ("Connect your Amazon advertising account to cx … for Sponsored Products, Brands and Display.").
