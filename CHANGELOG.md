@@ -2,7 +2,7 @@
 
 ## 0.1.9
 
-- The `spend-this-week` template sends its Try it sentence, word for word, then the words you type after its name.
+- The `spend-this-week`, `out-of-budget` and `wasted-keywords` templates send their Try it sentence, word for word, then the words you type after the template's name.
 
 ## 0.1.8
 
